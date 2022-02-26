@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hr_project/helper/http_helper.dart';
+import 'package:hr_project/home.dart';
 import 'package:hr_project/model/employee_payload.dart';
 import 'package:hr_project/signup.dart';
 
@@ -82,7 +83,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
                   if(map['status']=="Success"){
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => MySingUp()));
+                        builder: (context) => Home()));
                   }
 
                 });

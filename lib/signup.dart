@@ -1,7 +1,12 @@
 
 
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hr_project/helper/http_helper.dart';
+import 'package:hr_project/model/employee.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class MySingUp extends StatefulWidget {
   const MySingUp({Key? key}) : super(key: key);
@@ -11,11 +16,52 @@ class MySingUp extends StatefulWidget {
 }
 
 class _MySingUpState extends State<MySingUp> {
+
+  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  signup() async {
+
+    String username = _usernameController.value.text;
+    String email = _emailController.value.text;
+    String password = _passwordController.value.text;
+
+    var employee = Employee(
+
+        username: username,
+        email: email,
+        password: password);
+
+    print(employee);
+
+
+
+
+    signUp(employee).then((res) {
+      print(res.body);
+    });
+
+    try {} catch (e) {
+
+      Fluttertoast.showToast(
+          msg: "$e",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(""),
+        title: Text("Signup page"),
       ),
       body:Form(
         child: ListView(
@@ -36,6 +82,7 @@ class _MySingUpState extends State<MySingUp> {
             Padding(
               padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
               child: TextFormField(
+                controller: _usernameController,
                // controller: _usernameController,
                 decoration: InputDecoration(
                     suffixIcon: Icon(
@@ -49,6 +96,7 @@ class _MySingUpState extends State<MySingUp> {
             Padding(
               padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
               child: TextFormField(
+                controller: _emailController,
                // controller: _emailController,
                 decoration: InputDecoration(
                     suffixIcon: Icon(
@@ -62,6 +110,7 @@ class _MySingUpState extends State<MySingUp> {
             Padding(
               padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
               child: TextFormField(
+                controller: _passwordController,
                // controller: _passwordController,
                 decoration: InputDecoration(
                     suffixIcon: Icon(
@@ -78,6 +127,8 @@ class _MySingUpState extends State<MySingUp> {
 
               child: ElevatedButton(
                   onPressed: () {
+
+                    signup();
                    // save();
                   },
                   child: Text("submit")),

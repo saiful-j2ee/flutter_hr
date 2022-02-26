@@ -2,8 +2,11 @@ import 'dart:convert';
 
 import 'package:hr_project/model/employee.dart';
 import 'package:hr_project/model/employee_payload.dart';
-import 'package:http/http.dart' as http;
 
+ import 'package:http/http.dart' as http;
+
+
+import '../model/employee.dart';
 import 'constant.dart';
 
 Map<String, String> requestHeaders = {
