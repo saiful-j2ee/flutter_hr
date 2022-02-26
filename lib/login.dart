@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hr_project/HomeP.dart';
 import 'package:hr_project/helper/http_helper.dart';
 import 'package:hr_project/home.dart';
 import 'package:hr_project/model/employee_payload.dart';
@@ -53,7 +54,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
               child: TextField(
                 controller: _emailController,
                 decoration: InputDecoration(
-                    labelText: 'username',
+                    labelText: 'Email',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10))),
               ),
@@ -72,7 +73,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
               padding: const EdgeInsets.all(12.0),
             child: ElevatedButton(
               onPressed: () {
-                print("igiigigyig");
+
                 String email=_emailController.text;
                 String password=_passwordController.text;
                 EmployeePayload emp=new EmployeePayload(email: email, password: password);
@@ -80,16 +81,16 @@ class _MyLoginPageState extends State<MyLoginPage> {
                 signIn(emp).then((res) {
 
                   Map<String,dynamic>map = jsonDecode(res.body);
-
+                  print(map['status']);
                   if(map['status']=="Success"){
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Home()));
+                        builder: (context) => MyHomePageDrawer()));
                   }
 
                 });
 
               },
-              child: Text("Submit"),
+              child: Text("Login"),
             ),
             ),
             Padding(

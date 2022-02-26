@@ -5,8 +5,10 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hr_project/helper/http_helper.dart';
+import 'package:hr_project/login.dart';
 import 'package:hr_project/model/employee.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 
 class MySingUp extends StatefulWidget {
   const MySingUp({Key? key}) : super(key: key);
@@ -129,6 +131,10 @@ class _MySingUpState extends State<MySingUp> {
                   onPressed: () {
 
                     signup();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>  MyLogin()),
+                    );
                    // save();
                   },
                   child: Text("submit")),
