@@ -28,6 +28,15 @@ Future<http.Response> signIn(EmployeePayload employee) async {
 
 }
 
+Future<http.Response> save(Employee employee) async {
+  final response = await http.post(Uri.parse(registerApi),
+      headers: requestHeaders, body: jsonEncode(employee.toMap()));
+
+  return response;
+
+}
+
+
 // Future<http.Response> getTotalInfo() async {
 //   final response = await http.get(Uri.parse(totalInfoApi),
 //       headers: requestHeaders);
