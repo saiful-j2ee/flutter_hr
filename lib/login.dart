@@ -83,8 +83,9 @@ class _MyLoginPageState extends State<MyLoginPage> {
                   Map<String,dynamic>map = jsonDecode(res.body);
                   print(map['status']);
                   if(map['status']=="Success"){
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => MyHomePageDrawer()));
+
+
+                    Navigator.pushNamed(context, "home");
                   }
 
                 });

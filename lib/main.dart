@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:hr_project/home.dart';
 import 'package:hr_project/login.dart';
 
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-  initialRoute: 'login',
-    routes: {'login':(context)=>MyLogin()},
+  initialRoute: 'home',
+    routes: {
+      'login':(context)=>MyLogin(),
+      'home':(context)=>Home(),
+
+    },
   ));
 }
 
