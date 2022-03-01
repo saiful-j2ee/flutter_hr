@@ -8,6 +8,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         title: Text("drawer demo"),
         backgroundColor: Colors.deepOrange,
@@ -22,10 +23,20 @@ class Home extends StatelessWidget {
 
               ])
               ),
+
               child:Container(
-                child: ,
-              ),
-              child: Text("header part")),
+                child: Column(
+                  children: <Widget>[
+                    Material(
+                      borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                      child: Padding(padding: EdgeInsets.all(0.0),
+                       child: Image.asset("assets/human1.png",height: 100,width: 100,),),
+
+                    ),
+                    Text("Hr Management")
+                  ],
+                ),
+              ) ),
 
           Custom(Icons.person, "Employee profile", (){}),
           Custom(Icons.info, "Job information", (){}),
