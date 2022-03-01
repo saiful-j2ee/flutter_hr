@@ -22,28 +22,23 @@ class Home extends StatelessWidget {
 
               ])
               ),
+              child:Container(
+                child: ,
+              ),
               child: Text("header part")),
-          ListTile(
-            title: Text("Job Information"),
-          ),
 
-          ListTile(
-            title: Text("profile of employee"),
-            onTap: (){},
-          ),
-          Custom(),
+          Custom(Icons.person, "Employee profile", (){}),
+          Custom(Icons.info, "Job information", (){}),
+          Custom(Icons.access_alarm, "Attendance", (){}),
+          Custom(Icons.money, "Salary", (){}),
+          Custom(Icons.logout, "Logout", (){}),
 
-          ListTile(
-            title: Text("Attendance Record"),
-          ),
 
-          ListTile(
-            title: Text("Salary"),
-          ),
 
-          ListTile(
-            title: Text("Table"),
-          ),
+
+
+
+
         ],
           
         ) ,) ,
@@ -52,25 +47,46 @@ class Home extends StatelessWidget {
 }
 
 class Custom extends StatelessWidget {
-  const Custom({Key? key}) : super(key: key);
+  IconData icons;
+  String text;
+  Function onTap;
+
+
+  Custom(this.icons, this.text, this.onTap);
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: ()=>{},
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children:<Widget> [
-         Row(
-           children: <Widget>[
-             Icon(Icons.person),
-             Text("Employee Profile"),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.grey))
+        ),
+        child: InkWell(
+          splashColor:Colors.deepOrange ,
+          onTap: (){},
+          child: Container(
+            height: 40,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children:<Widget> [
+               Row(
+                 children: <Widget>[
+                   Icon(icons),
 
-           ]
-         ),
-          Icon(Icons.arrow_right)
+                   Padding(
+                     padding: const EdgeInsets.all(8.0),
+                     child: Text(text,style: TextStyle(fontSize: 16),),
+                   ),
 
-        ],
+                 ]
+               ),
+                Icon(Icons.arrow_right)
+
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
