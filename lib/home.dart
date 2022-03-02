@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hr_project/employee.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -38,11 +39,22 @@ class Home extends StatelessWidget {
                 ),
               ) ),
 
-          Custom(Icons.person, "Employee profile", (){}),
-          Custom(Icons.info, "Job information", (){}),
-          Custom(Icons.access_alarm, "Attendance", (){}),
-          Custom(Icons.money, "Salary", (){}),
-          Custom(Icons.logout, "Logout", (){}),
+          Custom(Icons.person, "Employee profile", (){
+             Navigator.pushNamed(context, "employee");
+             print("jkdfd");
+          }),
+          Custom(Icons.info, "Job information", (){
+            Navigator.pushNamed(context, "job_info");
+          }),
+          Custom(Icons.access_alarm, "Attendance", (){
+
+          }),
+          Custom(Icons.money, "Salary", (){
+
+          }),
+          Custom(Icons.logout, "Logout", (){
+
+          }),
 
 
 
@@ -75,7 +87,7 @@ class Custom extends StatelessWidget {
         ),
         child: InkWell(
           splashColor:Colors.deepOrange ,
-          onTap: (){},
+          onTap: ()=> onTap(),
           child: Container(
             height: 40,
             child: Row(
