@@ -8,11 +8,11 @@ import 'job_info.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-  initialRoute: 'login',
+  initialRoute: 'employee',
     routes: {
       'login':(context)=>MyLogin(),
        'home':(context)=>Home(),
-       'employee':(context)=>WellFormed(),
+       'employee':(context)=>Employee(),
        'job_info':(context)=>Job(),
 
 
