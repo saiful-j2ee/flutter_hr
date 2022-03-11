@@ -3,11 +3,11 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hr_project/HomeP.dart';
+import 'package:hr_project/design/HomeP.dart';
 import 'package:hr_project/helper/http_helper.dart';
-import 'package:hr_project/home.dart';
+import 'package:hr_project/design/home.dart';
 import 'package:hr_project/model/employee_payload.dart';
-import 'package:hr_project/signup.dart';
+import 'package:hr_project/design/signup.dart';
 
 class MyLogin extends StatefulWidget {
   @override

@@ -1,7 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hr_project/employee.dart';
+import 'package:hr_project/design/employee.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
