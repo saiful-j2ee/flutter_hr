@@ -8,7 +8,7 @@ import 'job_info.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-  initialRoute: 'home',
+  initialRoute: 'employee',
     routes: {
       'login':(context)=>MyLogin(),
        'home':(context)=>Home(),

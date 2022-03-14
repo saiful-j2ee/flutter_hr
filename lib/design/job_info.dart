@@ -31,6 +31,11 @@ class Job extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
                       child: TextFormField(
+                        onChanged: (val){
+                          print(val);
+
+
+                        },
                         // controller: _usernameController,
                         // controller: _usernameController,
                         decoration: InputDecoration(

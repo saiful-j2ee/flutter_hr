@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +11,11 @@ class Employee extends StatefulWidget {
 }
 
 class _EmployeeState extends State<Employee> {
+  String gender="Male";
   @override
   Widget build(BuildContext context) {
+
+    var _dateOfBirthController;
     return Scaffold(
       appBar: AppBar(title: Text("Employee Form",textAlign: TextAlign.center,),
       ),
@@ -42,17 +47,31 @@ class _EmployeeState extends State<Employee> {
                         size: 20.0,
                       ),
                       border: OutlineInputBorder(),
-                      labelText: "Username"),
+                      labelText: "First Name"),
                 ),
-              ),
-              Padding(
+              ),Padding(
                 padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
                 child: TextFormField(
-                 // controller: _emailController,
-                  // controller: _emailController,
+                 // controller: _usernameController,
+                  // controller: _usernameController,
                   decoration: InputDecoration(
+
                       suffixIcon: Icon(
-                        Icons.mark_email_read,
+                        Icons.supervisor_account_sharp,
+                        size: 20.0,
+                      ),
+                      border: OutlineInputBorder(),
+                      labelText: "Last Name"),
+                ),
+              ),Padding(
+                padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
+                child: TextFormField(
+                 // controller: _usernameController,
+                  // controller: _usernameController,
+                  decoration: InputDecoration(
+
+                      suffixIcon: Icon(
+                        Icons.supervisor_account_sharp,
                         size: 20.0,
                       ),
                       border: OutlineInputBorder(),
@@ -62,17 +81,177 @@ class _EmployeeState extends State<Employee> {
               Padding(
                 padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
                 child: TextFormField(
-                //  controller: _passwordController,
-                  // controller: _passwordController,
+                  controller: _dateOfBirthController,
                   decoration: InputDecoration(
-                      suffixIcon: Icon(
-                        Icons.password,
-                        size: 20.0,
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.calendar_today),
+                        onPressed: () => _selectDate(context),
                       ),
-                      border: OutlineInputBorder(),
-                      labelText: "Password"),
+                      border: UnderlineInputBorder(),
+                      labelText: "Date of Birth"),
                 ),
               ),
+              Padding(
+
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+                    Text("Gender :",textAlign: TextAlign.justify,),
+                    Row(
+                      children: [
+                        Radio(value: "Male", groupValue: gender, onChanged: (val){
+                          gender=val.toString();
+                          print(val);
+                          setState(() {
+
+                          });
+                        }),
+                        Text("Male"),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Radio(value: "Female", groupValue: gender, onChanged: (val){
+                          gender=val.toString();
+                          print(val);
+                          setState(() {
+
+                          });
+                        }),
+                        Text("Female"),
+                      ],
+                    ),
+                  ],
+                ),
+
+              ),
+
+
+
+
+
+
+
+
+
+
+
+              //
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
+              //   child: TextFormField(
+              //    // controller: _usernameController,
+              //     // controller: _usernameController,
+              //     decoration: InputDecoration(
+              //
+              //         suffixIcon: Icon(
+              //           Icons.supervisor_account_sharp,
+              //           size: 20.0,
+              //         ),
+              //         border: OutlineInputBorder(),
+              //         labelText: "Username"),
+              //   ),
+              // ),Padding(
+              //   padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
+              //   child: TextFormField(
+              //    // controller: _usernameController,
+              //     // controller: _usernameController,
+              //     decoration: InputDecoration(
+              //
+              //         suffixIcon: Icon(
+              //           Icons.supervisor_account_sharp,
+              //           size: 20.0,
+              //         ),
+              //         border: OutlineInputBorder(),
+              //         labelText: "Username"),
+              //   ),
+              // ),Padding(
+              //   padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
+              //   child: TextFormField(
+              //    // controller: _usernameController,
+              //     // controller: _usernameController,
+              //     decoration: InputDecoration(
+              //
+              //         suffixIcon: Icon(
+              //           Icons.supervisor_account_sharp,
+              //           size: 20.0,
+              //         ),
+              //         border: OutlineInputBorder(),
+              //         labelText: "Username"),
+              //   ),
+              // ),Padding(
+              //   padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
+              //   child: TextFormField(
+              //    // controller: _usernameController,
+              //     // controller: _usernameController,
+              //     decoration: InputDecoration(
+              //
+              //         suffixIcon: Icon(
+              //           Icons.supervisor_account_sharp,
+              //           size: 20.0,
+              //         ),
+              //         border: OutlineInputBorder(),
+              //         labelText: "Username"),
+              //   ),
+              // ),Padding(
+              //   padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
+              //   child: TextFormField(
+              //    // controller: _usernameController,
+              //     // controller: _usernameController,
+              //     decoration: InputDecoration(
+              //
+              //         suffixIcon: Icon(
+              //           Icons.supervisor_account_sharp,
+              //           size: 20.0,
+              //         ),
+              //         border: OutlineInputBorder(),
+              //         labelText: "Username"),
+              //   ),
+              // ),Padding(
+              //   padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
+              //   child: TextFormField(
+              //    // controller: _usernameController,
+              //     // controller: _usernameController,
+              //     decoration: InputDecoration(
+              //
+              //         suffixIcon: Icon(
+              //           Icons.supervisor_account_sharp,
+              //           size: 20.0,
+              //         ),
+              //         border: OutlineInputBorder(),
+              //         labelText: "Username"),
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
+              //   child: TextFormField(
+              //    // controller: _emailController,
+              //     // controller: _emailController,
+              //     decoration: InputDecoration(
+              //         suffixIcon: Icon(
+              //           Icons.mark_email_read,
+              //           size: 20.0,
+              //         ),
+              //         border: OutlineInputBorder(),
+              //         labelText: "Email"),
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
+              //   child: TextFormField(
+              //   //  controller: _passwordController,
+              //     // controller: _passwordController,
+              //     decoration: InputDecoration(
+              //         suffixIcon: Icon(
+              //           Icons.password,
+              //           size: 20.0,
+              //         ),
+              //         border: OutlineInputBorder(),
+              //         labelText: "Password"),
+              //   ),
+              // ),
 
               Padding(
                 padding: const EdgeInsets.all(30.0),
@@ -97,25 +276,3 @@ class _EmployeeState extends State<Employee> {
 
   home() {}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
