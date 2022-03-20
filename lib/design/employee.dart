@@ -13,10 +13,19 @@ class Employee extends StatefulWidget {
 class _EmployeeState extends State<Employee> {
   late File imageFile;
   File? _image;
+  TextEditingController fname= new TextEditingController();
+  TextEditingController lname= new TextEditingController();
+  TextEditingController email= new TextEditingController();
+   TextEditingController dob=new TextEditingController();
+  TextEditingController phone= new TextEditingController();
+  // TextEditingController fname= new TextEditingController();
+  // TextEditingController fname= new TextEditingController();
+  // TextEditingController fname= new TextEditingController();
+  // TextEditingController fname= new TextEditingController();
 
   String gender = "Male";
   String date = "";
-  DateTime selectedDate = DateTime.now();
+  //DateTime selectedDate = DateTime.now();
 
   final _picker = ImagePicker();
 
@@ -30,6 +39,25 @@ class _EmployeeState extends State<Employee> {
       });
     }
   }
+
+
+  DateTime selectedDate = DateTime.now();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        dob.text = "${selectedDate.toLocal()}".split(' ')[0];
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +101,8 @@ class _EmployeeState extends State<Employee> {
               Padding(
                 padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
                 child: TextFormField(
-                  // controller: _usernameController,
+
+                controller: fname,
                   // controller: _usernameController,
                   decoration: InputDecoration(
                       suffixIcon: Icon(
@@ -110,6 +139,19 @@ class _EmployeeState extends State<Employee> {
                       ),
                       border: OutlineInputBorder(),
                       labelText: "Email"),
+                ),
+              ), Padding(
+                padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
+                child: TextFormField(
+                   controller: phone,
+                  // controller: _usernameController,
+                  decoration: InputDecoration(
+                      suffixIcon: Icon(
+                        Icons.phone_android_outlined,
+                        size: 20.0,
+                      ),
+                      border: OutlineInputBorder(),
+                      labelText: "Mobile"),
                 ),
               ),
               Padding(
@@ -150,18 +192,36 @@ class _EmployeeState extends State<Employee> {
                   ],
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  _selectDate(context);
-                },
-                child: Text("date of birth"),
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
+                child: TextFormField(
+                  controller: dob,
+                  decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.calendar_today),
+                        onPressed: () => _selectDate(context),
+                      ),
+                      border: UnderlineInputBorder(),
+                      labelText: "Select Date"),
+                ),
               ),
-              Text(
-                  "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}"),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     _selectDate(context);
+              //   },
+              //   child: Text("date of birth"),
+              // ),
+              // Text(
+              //    controll
+              //     "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}"),
+
               Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: ElevatedButton(
                     onPressed: () {
+                      print(fname.value.text);
+                      print(gender);
+
                       //employeeForm();
                       // Navigator.push(
                       //   context,
@@ -176,16 +236,16 @@ class _EmployeeState extends State<Employee> {
         ));
   }
 
-  _selectDate(BuildContext context) async {
-    final DateTime? selected = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(2010),
-      lastDate: DateTime(2025),
-    );
-    if (selected != null && selected != selectedDate)
-      setState(() {
-        selectedDate = selected;
-      });
-  }
+  // _selectDate(BuildContext context) async {
+  //   final DateTime? selected = await showDatePicker(
+  //     context: context,
+  //     initialDate: selectedDate,
+  //     firstDate: DateTime(2010),
+  //     lastDate: DateTime(2025),
+  //   );
+  //   if (selected != null && selected != selectedDate)
+  //     setState(() {
+  //       selectedDate = selected;
+  //     });
+  // }
 }
