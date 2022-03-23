@@ -8,6 +8,7 @@ class AddEmployee {
  late String lname;
  late String department;
 
+
  late String password;
  late String area;
  late String gender;
@@ -21,6 +22,12 @@ class AddEmployee {
  late String email;
  late String images;
  late String imageUrl;
+ late double basicsalary;
+ late double houserent;
+ late double medical ;
+ late double transport;
+ late double overtime;
+ late double salary;
 
 //<editor-fold desc="Data Methods">
 
@@ -43,6 +50,12 @@ class AddEmployee {
     required this.email,
     required this.images,
     required this.imageUrl,
+    required this.basicsalary,
+    required this.houserent,
+    required this.medical,
+    required this.transport,
+    required this.overtime,
+    required this.salary,
   });
 
  @override
@@ -67,7 +80,13 @@ class AddEmployee {
           phone == other.phone &&
           email == other.email &&
           images == other.images &&
-          imageUrl == other.imageUrl);
+          imageUrl == other.imageUrl &&
+          basicsalary == other.basicsalary &&
+          houserent == other.houserent &&
+          medical == other.medical &&
+          transport == other.transport &&
+          overtime == other.overtime &&
+          salary == other.salary);
 
  @override
   int get hashCode =>
@@ -88,7 +107,13 @@ class AddEmployee {
       phone.hashCode ^
       email.hashCode ^
       images.hashCode ^
-      imageUrl.hashCode;
+      imageUrl.hashCode ^
+      basicsalary.hashCode ^
+      houserent.hashCode ^
+      medical.hashCode ^
+      transport.hashCode ^
+      overtime.hashCode ^
+      salary.hashCode;
 
  @override
   String toString() {
@@ -111,6 +136,12 @@ class AddEmployee {
         ' email: $email,' +
         ' images: $images,' +
         ' imageUrl: $imageUrl,' +
+        ' basicsalary: $basicsalary,' +
+        ' houserent: $houserent,' +
+        ' medical: $medical,' +
+        ' transport: $transport,' +
+        ' overtime: $overtime,' +
+        ' salary: $salary,' +
         '}';
   }
 
@@ -133,6 +164,12 @@ class AddEmployee {
     String? email,
     String? images,
     String? imageUrl,
+    double? basicsalary,
+    double? houserent,
+    double? medical,
+    double? transport,
+    double? overtime,
+    double? salary,
   }) {
     return AddEmployee(
       id: id ?? this.id,
@@ -153,6 +190,12 @@ class AddEmployee {
       email: email ?? this.email,
       images: images ?? this.images,
       imageUrl: imageUrl ?? this.imageUrl,
+      basicsalary: basicsalary ?? this.basicsalary,
+      houserent: houserent ?? this.houserent,
+      medical: medical ?? this.medical,
+      transport: transport ?? this.transport,
+      overtime: overtime ?? this.overtime,
+      salary: salary ?? this.salary,
     );
   }
 
@@ -176,6 +219,12 @@ class AddEmployee {
       'email': this.email,
       'images': this.images,
       'imageUrl': this.imageUrl,
+      'basicsalary': this.basicsalary,
+      'houserent': this.houserent,
+      'medical': this.medical,
+      'transport': this.transport,
+      'overtime': this.overtime,
+      'salary': this.salary,
     };
   }
 
@@ -199,6 +248,12 @@ class AddEmployee {
       email: map['email'] as String,
       images: map['images'] as String,
       imageUrl: map['imageUrl'] as String,
+      basicsalary: map['basicsalary'] as double,
+      houserent: map['houserent'] as double,
+      medical: map['medical'] as double,
+      transport: map['transport'] as double,
+      overtime: map['overtime'] as double,
+      salary: map['salary'] as double,
     );
   }
 

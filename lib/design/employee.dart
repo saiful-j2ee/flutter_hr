@@ -1,7 +1,15 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hr_project/helper/constant.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+import 'package:mime/mime.dart';
+import 'package:http_parser/http_parser.dart';
 
 class Employee extends StatefulWidget {
   const Employee({Key? key}) : super(key: key);
@@ -11,31 +19,190 @@ class Employee extends StatefulWidget {
 }
 
 class _EmployeeState extends State<Employee> {
-  late File imageFile;
-  File? _image;
+  Dio dio = new Dio();
+  var imageFile;
+  var image;
   TextEditingController fname= new TextEditingController();
   TextEditingController lname= new TextEditingController();
+
   TextEditingController email= new TextEditingController();
    TextEditingController dob=new TextEditingController();
   TextEditingController phone= new TextEditingController();
-  // TextEditingController fname= new TextEditingController();
-  // TextEditingController fname= new TextEditingController();
-  // TextEditingController fname= new TextEditingController();
-  // TextEditingController fname= new TextEditingController();
+   TextEditingController password= new TextEditingController();
+   TextEditingController paddress= new TextEditingController();
+   TextEditingController basicsalary= new TextEditingController();
+   TextEditingController houserent= new TextEditingController();
+   TextEditingController transport= new TextEditingController();
+   TextEditingController medical= new TextEditingController();
+   TextEditingController salary= new TextEditingController();
+
 
   String gender = "Male";
   String date = "";
   //DateTime selectedDate = DateTime.now();
 
-  final _picker = ImagePicker();
+  Uri apiUrl = Uri.parse(addEmployeeApi);
 
+  Future<Map<String, dynamic>?> _uploadImage(
+      File image) async {
+    setState(() {
+      //pr.show();
+    });
+
+    final mimeTypeData =
+    lookupMimeType(image.path, headerBytes: [0xFF, 0xD8])?.split('/');
+
+    // Intilize the multipart request
+    final imageUploadRequest = http.MultipartRequest('POST', apiUrl);
+
+    final file = await http.MultipartFile.fromPath('file', image.path,
+        contentType: MediaType(mimeTypeData![0], mimeTypeData[1]));
+    imageUploadRequest.files.add(file);
+    imageUploadRequest.fields['fname'] = fname.value.text;
+    imageUploadRequest.fields['lname'] = lname.value.text;
+
+
+
+    try {
+      final streamedResponse = await imageUploadRequest.send();
+      final response = await http.Response.fromStream(streamedResponse);
+      if (response.statusCode != 200) {
+
+        Fluttertoast.showToast(
+            msg: "Advertise Successfully published",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+        return null;
+      }
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      Fluttertoast.showToast(
+          msg: "Advertise failed to published",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+
+      return responseData;
+    } catch (e) {
+      print(e);
+      final snackBar = SnackBar(
+          content: const Text('Yay'),
+          action: SnackBarAction(
+            label: 'Undo',
+            onPressed: () {
+              // Some code to undo the change.
+            },
+          ));
+
+      return null;
+    }
+  }
+  
+  // saveEmployee() async{
+  //
+  //   var map = new Map<String, dynamic>();
+  //   map['fname'] = fname.value.text;
+  //
+  //   //map['lname'] = lname.value.text;
+  //   map['email'] = email.value.text;
+  //   map['phone'] = phone.value.text;
+  //   map['gender'] = gender;
+  //   map['dob'] = dob.value.text;
+  //   map['password'] = password;
+  //   map['basicsalary'] = salary;
+  //   map['houserent'] = houserent;
+  //   map['transport'] = transport;
+  //   map['medical'] = medical;
+  //   map['salary'] = salary;
+  //
+  //   print(map);
+  //   //String _body = model.toJson();
+  //   try{
+  //     final response = await http.post(Uri.parse(registerApi),
+  //       body: map,
+  //     );
+  //
+  //     if (response.statusCode == 200){
+  //       Fluttertoast.showToast(
+  //           msg: "Advertise successFully published",
+  //           toastLength: Toast.LENGTH_LONG,
+  //           gravity: ToastGravity.CENTER,
+  //           timeInSecForIosWeb: 1,
+  //           backgroundColor: Colors.green,
+  //           textColor: Colors.white,
+  //           fontSize: 16.0
+  //       );
+  //     }
+  //     else{
+  //       Fluttertoast.showToast(
+  //           msg: "Registration Failed",
+  //           toastLength: Toast.LENGTH_LONG,
+  //           gravity: ToastGravity.CENTER,
+  //           timeInSecForIosWeb: 1,
+  //           backgroundColor: Colors.red,
+  //           textColor: Colors.white,
+  //           fontSize: 16.0
+  //       );
+  //     }
+  //
+  //
+  //
+  //   }catch(e){
+  //     log(e.toString());
+  //     Fluttertoast.showToast(
+  //         msg: "$e",
+  //         toastLength: Toast.LENGTH_LONG,
+  //         gravity: ToastGravity.CENTER,
+  //         timeInSecForIosWeb: 1,
+  //         backgroundColor: Colors.red,
+  //         textColor: Colors.white,
+  //         fontSize: 16.0
+  //     );
+  //   }
+  // }
+
+  void _startUploading() async {
+    if (image != null) {
+      final Map<String, dynamic>? response =
+      await _uploadImage(image);
+
+      // Check if any error occured
+      if (response == null) {
+        // pr.hide();
+        //messageAllert('User details updated successfully', 'Success');
+
+      }
+    } else {
+      //messageAllert('Please Select a profile photo', 'Profile Photo');
+      final snackBar = SnackBar(
+          content: const Text('Yay! A SnackBar!'),
+          action: SnackBarAction(
+            label: 'Undo',
+            onPressed: () {
+              // Some code to undo the change.
+            },
+          ));
+    }
+  }
+
+
+
+  final _picker = ImagePicker();
   // Implementing the image picker
   Future<void> _openImagePicker() async {
     final XFile? pickedImage =
         await _picker.pickImage(source: ImageSource.gallery);
     if (pickedImage != null) {
       setState(() {
-        _image = File(pickedImage.path);
+        image = File(pickedImage.path);
       });
     }
   }
@@ -82,8 +249,8 @@ class _EmployeeState extends State<Employee> {
                 width: double.infinity,
                 height: 300,
                 color: Colors.grey[300],
-                child: _image != null
-                    ? Image.file(_image!, fit: BoxFit.cover)
+                child: image != null
+                    ? Image.file(image!, fit: BoxFit.cover)
                     : const Text('Please select an image'),
               ),
               Padding(
@@ -202,7 +369,91 @@ class _EmployeeState extends State<Employee> {
                         onPressed: () => _selectDate(context),
                       ),
                       border: UnderlineInputBorder(),
-                      labelText: "Select Date"),
+                      labelText: "Join date "),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
+                child: TextFormField(
+                  controller: phone,
+                  // controller: _usernameController,
+                  decoration: InputDecoration(
+                      suffixIcon: Icon(
+                        Icons.phone_android_outlined,
+                        size: 20.0,
+                      ),
+                      border: OutlineInputBorder(),
+                      labelText: "Password"),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
+                child: TextFormField(
+                  controller: phone,
+                  // controller: _usernameController,
+                  decoration: InputDecoration(
+                      suffixIcon: Icon(
+                        Icons.phone_android_outlined,
+                        size: 20.0,
+                      ),
+                      border: OutlineInputBorder(),
+                      labelText: "Basic Salary"),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
+                child: TextFormField(
+                  controller: phone,
+                  // controller: _usernameController,
+                  decoration: InputDecoration(
+                      suffixIcon: Icon(
+                        Icons.phone_android_outlined,
+                        size: 20.0,
+                      ),
+                      border: OutlineInputBorder(),
+                      labelText: "HouseRent Alowance"),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
+                child: TextFormField(
+                  controller: phone,
+                  // controller: _usernameController,
+                  decoration: InputDecoration(
+                      suffixIcon: Icon(
+                        Icons.phone_android_outlined,
+                        size: 20.0,
+                      ),
+                      border: OutlineInputBorder(),
+                      labelText: "Transport Alowance"),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
+                child: TextFormField(
+                  controller: phone,
+                  // controller: _usernameController,
+                  decoration: InputDecoration(
+                      suffixIcon: Icon(
+                        Icons.phone_android_outlined,
+                        size: 20.0,
+                      ),
+                      border: OutlineInputBorder(),
+                      labelText: "Medical Alowance"),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 30.0, right: 30, top: 8),
+                child: TextFormField(
+                  controller: phone,
+                  // controller: _usernameController,
+                  decoration: InputDecoration(
+                      suffixIcon: Icon(
+                        Icons.phone_android_outlined,
+                        size: 20.0,
+                      ),
+                      border: OutlineInputBorder(),
+                      labelText: "Total Salary"),
                 ),
               ),
               // ElevatedButton(
@@ -221,13 +472,14 @@ class _EmployeeState extends State<Employee> {
                     onPressed: () {
                       print(fname.value.text);
                       print(gender);
-
+                      _startUploading();
+                      print(this.image);
                       //employeeForm();
                       // Navigator.push(
                       //   context,
                       //   // MaterialPageRoute(builder: (context) => home()),
                       // );
-                      // save();
+                       //save(Employee employee);
                     },
                     child: Text("submit")),
               ),
